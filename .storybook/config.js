@@ -7,7 +7,7 @@ setOptions({
    * Name to display in the top left corner
    * @type {String}
    */
-  name: 'Formik',
+  name: 'Formik-Typed',
   /**
    * URL for name in top left corner to link to
    * @type {String}
