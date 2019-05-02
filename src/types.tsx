@@ -21,7 +21,7 @@ export type TypedFieldProxy<FormValues, Values = FormValues> = {
     ? TypedFieldProxy<FormValues, Values[fieldName]>
     : FieldDefinition<FormValues, Values[fieldName]>
 } &
-  FieldDefinition<FormValues, any>;
+  FieldDefinition<FormValues, Values>;
 
 export interface TypedFormikProps<Values> extends FormikProps<Values> {
   readonly Fields: TypedFieldProxy<Values>;
