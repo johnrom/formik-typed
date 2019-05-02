@@ -3,6 +3,7 @@ import { render, cleanup } from 'react-testing-library';
 
 import { TypedFormik, TypedFormikProps, TypedFormikConfig } from '../src';
 import { noop } from './testHelpers';
+import { FieldProps } from '@johnrom/formik';
 
 jest.spyOn(global.console, 'warn');
 
@@ -12,8 +13,16 @@ interface Values {
     street: {
       line1: string;
       line2: string;
-    }
-  }
+    };
+  };
+}
+
+export const MySpecialField = (
+  props: FieldProps<any, string, MySpecialProps>
+) => <h1>{props.mySpecialProp}</h1>;
+
+interface MySpecialProps {
+  mySpecialProp: string;
 }
 
 function Form({
@@ -25,37 +34,45 @@ function Form({
   status,
   errors,
   isSubmitting,
-  Fields
+  Fields,
 }: TypedFormikProps<Values>) {
+  const NameField = Fields.name._getField<MySpecialProps>();
+  const AddressLine1Field = Fields.address.street.line1._getField<
+    MySpecialProps
+  >();
   return (
     <form onSubmit={handleSubmit} data-testid="form">
-      <Fields.name._field
+      <NameField
         type="text"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.name}
         data-testid="name-input"
+        component={MySpecialField}
+        mySpecialProp="hello"
       />
       {touched.name && errors.name && <div id="feedback">{errors.name}</div>}
-      <Fields.address.street.line1._field
+      <AddressLine1Field
         type="text"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.name}
         data-testid="name-input"
+        component={MySpecialField}
+        mySpecialProp="hello"
       />
-      {
-        touched.address && touched.address.street && touched.address.street.line1 &&
-        errors.address && errors.address.street && errors.address.street.line1 &&
-        <div id="feedback">
-          {errors.address.street.line1}
-        </div>
-      }
-      {isSubmitting && <div id="submitting">Submitting</div>}
-      {status &&
-        !!status.myStatusMessage && (
-          <div id="statusMessage">{status.myStatusMessage}</div>
+      {touched.address &&
+        touched.address.street &&
+        touched.address.street.line1 &&
+        errors.address &&
+        errors.address.street &&
+        errors.address.street.line1 && (
+          <div id="feedback">{errors.address.street.line1}</div>
         )}
+      {isSubmitting && <div id="submitting">Submitting</div>}
+      {status && !!status.myStatusMessage && (
+        <div id="statusMessage">{status.myStatusMessage}</div>
+      )}
       <button type="submit" data-testid="submit-button">
         Submit
       </button>
@@ -69,8 +86,8 @@ const InitialValues: Values = {
     street: {
       line1: 'street',
       line2: 'apt',
-    }
-  }
+    },
+  },
 };
 
 function renderFormik(props?: Partial<TypedFormikConfig<Values>>) {
@@ -91,17 +108,13 @@ function renderFormik(props?: Partial<TypedFormikConfig<Values>>) {
         initialValues={InitialValues as any}
         {...props}
       >
-        {formikProps =>
-          (injected = formikProps) && (
-            <Form {...formikProps} />
-          )
-        }
+        {formikProps => (injected = formikProps) && <Form {...formikProps} />}
       </TypedFormik>
     ),
   };
 }
 
-describe('<TypedFormik>', () => {
+describe('<TypedFormik />', () => {
   // Cleanup the dom after each test.
   // https://github.com/kentcdodds/react-testing-library#example
   afterEach(cleanup);

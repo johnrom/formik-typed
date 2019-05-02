@@ -10,8 +10,8 @@ interface Values {
     street: {
       line1: string;
       line2: string;
-    }
-  }
+    };
+  };
 }
 
 const Form: React.SFC<TypedFormikProps<Values>> = ({
@@ -24,11 +24,13 @@ const Form: React.SFC<TypedFormikProps<Values>> = ({
   status,
   errors,
   isSubmitting,
-  Fields
+  Fields,
 }) => {
+  const NameField = Fields.name._getField();
+  const AddressLine1Field = Fields.address.street.line1._getField();
   return (
     <form onSubmit={handleSubmit}>
-      <Fields.name._field
+      <NameField
         type="text"
         onChange={handleChange}
         onBlur={handleBlur}
@@ -36,20 +38,21 @@ const Form: React.SFC<TypedFormikProps<Values>> = ({
         data-testid="name-input"
       />
       {touched.name && errors.name && <div id="feedback">{errors.name}</div>}
-      <Fields.address.street.line1._field
+      <AddressLine1Field
         type="text"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.name}
         data-testid="name-input"
       />
-      {
-        touched.address && touched.address.street && touched.address.street.line1 &&
-        errors.address && errors.address.street && errors.address.street.line1 &&
-        <div id="feedback">
-          {errors.address.street.line1}
-        </div>
-      }
+      {touched.address &&
+        touched.address.street &&
+        touched.address.street.line1 &&
+        errors.address &&
+        errors.address.street &&
+        errors.address.street.line1 && (
+          <div id="feedback">{errors.address.street.line1}</div>
+        )}
       {isSubmitting && <div id="submitting">Submitting</div>}
       <button
         id="statusButton"
@@ -57,10 +60,9 @@ const Form: React.SFC<TypedFormikProps<Values>> = ({
       >
         Call setStatus
       </button>
-      {status &&
-        !!status.myStatusMessage && (
-          <div id="statusMessage">{status.myStatusMessage}</div>
-        )}
+      {status && !!status.myStatusMessage && (
+        <div id="statusMessage">{status.myStatusMessage}</div>
+      )}
       <button type="submit">Submit</button>
     </form>
   );
@@ -72,8 +74,8 @@ const InitialValues: Values = {
     street: {
       line1: 'street',
       line2: 'apt',
-    }
-  }
+    },
+  },
 };
 
 const renderWithTypedFormik = (options?: any, props?: any) => {
@@ -93,11 +95,11 @@ const renderWithTypedFormik = (options?: any, props?: any) => {
   };
 };
 
-describe('withFormik()', () => {
+describe('withTypedFormik()', () => {
   it('should pass a Fields parameter', () => {
     const { getProps } = renderWithTypedFormik();
     const props = getProps();
 
-    expect(props.Fields).not.toBe(false);
+    expect(props.Fields).not.toBeFalsy();
   });
 });

@@ -1,6 +1,10 @@
 import { wrapField } from './wrapField';
 import { FieldDefinition, TypedFieldProxy } from './types';
 
+/** @private is the given object a Function? */
+export const isFunction = (obj: any): obj is Function =>
+  typeof obj === 'function';
+
 export const typedFieldProxy = <FormValues, Values = FormValues>(
   // the originating Proxy is never going to return its parent, but _field is required
   parent: FieldDefinition<FormValues, any> = {} as any
@@ -23,7 +27,7 @@ export const typedFieldProxy = <FormValues, Values = FormValues>(
           target[key] = typedFieldProxy<FormValues, Values[typeof key]>({
             _parent: target,
             _key: key as string,
-            _field: wrapField<FormValues, Values, typeof key>(key, parent),
+            _getField: wrapField<FormValues, Values, typeof key>(key, parent),
           }) as any;
         }
       }

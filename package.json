@@ -21,20 +21,21 @@
   "main": "dist/index.js",
   "module": "dist/formik-typed.esm.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "peerDependencies": {
     "react": ">=15"
   },
   "scripts": {
     "test": "jest --env=jsdom",
     "test:watch": "npm run test -- --watch",
-    "start": "cp-cli ./index.js ./dist/index.js && cross-env NODE_ENV=development rollup -w -c | tsc -w -p tsconfig.base.json",
+    "start":
+      "cp-cli ./index.js ./dist/index.js && cross-env NODE_ENV=development rollup -w -c | tsc -w -p tsconfig.base.json",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production tsc -p tsconfig.base.json && rollup -c && rimraf compiled && cp-cli ./index.js ./dist/index.js",
+    "build":
+      "cross-env NODE_ENV=production tsc -p tsconfig.base.json && rollup -c && rimraf compiled && cp-cli ./index.js ./dist/index.js",
     "prepublish": "npm run build",
-    "format": "prettier --trailing-comma es5 --single-quote --write 'src/**/*' 'test/**/*' 'README.md'",
+    "format":
+      "prettier --trailing-comma es5 --single-quote --write 'src/**/*' 'test/**/*' 'README.md'",
     "precommit": "lint-staged",
     "storybook": "start-storybook -p 9001",
     "addc": "all-contributors add",
@@ -42,7 +43,7 @@
     "size": "size-limit"
   },
   "dependencies": {
-    "@johnrom/formik": "^1.5.0-typed-3"
+    "@johnrom/formik": "^1.5.2-typed-1"
   },
   "optionalDependencies": {},
   "resolutions": {
@@ -70,7 +71,7 @@
     "jest": "^23.1.0",
     "jest-cli": "^23.1.0",
     "lint-staged": "4.0.2",
-    "prettier": "1.11.1",
+    "prettier": "1.17.0",
     "raw-loader": "^0.5.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -104,24 +105,13 @@
     "semi": true
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
-    ],
+    "collectCoverageFrom": ["src/**/*.{ts,tsx}"],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).ts?(x)"
-    ],
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "testMatch": ["<rootDir>/test/**/?(*.)(spec|test).ts?(x)"],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "size-limit": [
     {
