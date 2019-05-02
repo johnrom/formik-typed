@@ -15,8 +15,8 @@ export interface FieldDefinition<FormValues, ValueType> {
 }
 
 export type TypedFieldProxy<FormValues, Values = FormValues> = {
-  [fieldName in keyof Values]: Values[fieldName] extends (infer FieldType)[]
-    ? TypedFieldProxy<FormValues, FieldType>[]
+  [fieldName in keyof Values]: Values[fieldName] extends any[]
+    ? FieldDefinition<FormValues, Values[fieldName]>
     : Values[fieldName] extends object
     ? TypedFieldProxy<FormValues, Values[fieldName]>
     : FieldDefinition<FormValues, Values[fieldName]>
