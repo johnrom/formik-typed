@@ -24,7 +24,7 @@ export class TypedFormik<Values> extends React.Component<
               ? (children as ((
                   props: TypedFormikProps<Values>
                 ) => React.ReactNode))({
-                  Fields: this.TypedFields,
+                  fields: this.TypedFields,
                   ...formikProps,
                 })
               : !isEmptyChildren(children)

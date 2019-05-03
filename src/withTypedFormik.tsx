@@ -28,7 +28,7 @@ export const withTypedFormik = <
       <Component
         {...{
           ...props,
-          Fields: TypedFieldProxy,
+          fields: TypedFieldProxy,
         }}
       />
     ));

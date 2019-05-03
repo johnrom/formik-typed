@@ -34,10 +34,10 @@ function Form({
   status,
   errors,
   isSubmitting,
-  Fields,
+  fields,
 }: TypedFormikProps<Values>) {
-  const NameField = Fields.name._getField<MySpecialProps>();
-  const AddressLine1Field = Fields.address.street.line1._getField<
+  const NameField = fields.name._getField<MySpecialProps>();
+  const AddressLine1Field = fields.address.street.line1._getField<
     MySpecialProps
   >();
   return (
@@ -123,6 +123,6 @@ describe('<TypedFormik />', () => {
     const { getProps } = renderFormik();
     const props = getProps();
 
-    expect(props.Fields).not.toBe(false);
+    expect(props.fields).not.toBe(false);
   });
 });

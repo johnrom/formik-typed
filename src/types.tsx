@@ -9,22 +9,35 @@ import {
 export interface FieldDefinition<FormValues, ValueType> {
   _parent?: FieldDefinition<FormValues, any>;
   _key?: string;
-  _getField: <TExtraProps extends object = {}>() => React.ComponentType<
+  _getField: <TExtraProps = {}>() => React.ComponentType<
     TypedAttributes<FormValues, ValueType, TExtraProps>
   >;
+  _childProxy: ValueType extends object ? TypedFieldProxy<ValueType> : never;
 }
 
+type ArrayFieldDefinition<FormValues, FieldType> = TypedFieldProxy<
+  FormValues,
+  FieldType
+>[] &
+  FieldDefinition<FormValues, FieldType[]>;
+
+type FieldDefinitionOrObjectProxy<
+  FormValues,
+  Values,
+  FieldName extends keyof Values
+> = Values[FieldName] extends object
+  ? TypedFieldProxy<FormValues, Values[FieldName]>
+  : FieldDefinition<FormValues, Values[FieldName]>;
+
 export type TypedFieldProxy<FormValues, Values = FormValues> = {
-  [fieldName in keyof Values]: Values[fieldName] extends any[]
-    ? FieldDefinition<FormValues, Values[fieldName]>
-    : Values[fieldName] extends object
-    ? TypedFieldProxy<FormValues, Values[fieldName]>
-    : FieldDefinition<FormValues, Values[fieldName]>
+  [fieldName in keyof Values]-?: Values[fieldName] extends (infer FieldType)[]
+    ? ArrayFieldDefinition<FormValues, FieldType>
+    : FieldDefinitionOrObjectProxy<FormValues, Values, fieldName>
 } &
   FieldDefinition<FormValues, Values>;
 
 export interface TypedFormikProps<Values> extends FormikProps<Values> {
-  readonly Fields: TypedFieldProxy<Values>;
+  readonly fields: TypedFieldProxy<Values>;
 }
 
 export interface TypedFormikConfig<Values> extends FormikConfig<Values> {
@@ -47,11 +60,7 @@ export declare type BaseFieldAttributes<
  * The attributes passed to a Typed Field Wrapper. Note these Omit `name`, because the field wrapper handles that.
  * This refines TProps outside of FieldAttributes because those Props may not be partial
  */
-export type TypedAttributes<
-  Values,
-  ValueType,
-  TProps extends object = {}
-> = TProps &
+export type TypedAttributes<Values, ValueType, TProps = {}> = TProps &
   Partial<
     Pick<
       BaseFieldAttributes<TProps, Values, ValueType>,

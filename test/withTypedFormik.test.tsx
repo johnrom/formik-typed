@@ -24,10 +24,10 @@ const Form: React.SFC<TypedFormikProps<Values>> = ({
   status,
   errors,
   isSubmitting,
-  Fields,
+  fields,
 }) => {
-  const NameField = Fields.name._getField();
-  const AddressLine1Field = Fields.address.street.line1._getField();
+  const NameField = fields.name._getField();
+  const AddressLine1Field = fields.address.street.line1._getField();
   return (
     <form onSubmit={handleSubmit}>
       <NameField
@@ -100,6 +100,6 @@ describe('withTypedFormik()', () => {
     const { getProps } = renderWithTypedFormik();
     const props = getProps();
 
-    expect(props.Fields).not.toBeFalsy();
+    expect(props.fields).not.toBeFalsy();
   });
 });

@@ -28,6 +28,7 @@ export const typedFieldProxy = <FormValues, Values = FormValues>(
             _parent: target,
             _key: key as string,
             _getField: wrapField<FormValues, Values, typeof key>(key, parent),
+            _childProxy: typedFieldProxy<Values>(),
           }) as any;
         }
       }
