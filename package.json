@@ -40,7 +40,8 @@
     "addc": "all-contributors add",
     "gen-docs": "all-contributors generate && doctoc README.md",
     "size": "size-limit",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "debug-storybook": "node --inspect-brk=43435 -- node_modules/@storybook/react/bin/index.js -p 6006 -s public"
   },
   "dependencies": {
     "@johnrom/formik": "^1.5.2-typed-1"
