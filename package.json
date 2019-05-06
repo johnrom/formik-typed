@@ -44,7 +44,8 @@
     "debug-storybook": "node --inspect-brk=43435 -- node_modules/@storybook/react/bin/index.js -p 6006 -s public"
   },
   "dependencies": {
-    "@johnrom/formik": "^1.5.2-typed-1"
+    "@johnrom/formik": "^1.5.2-typed-1",
+    "@types/typography": "^0.16.2"
   },
   "optionalDependencies": {},
   "resolutions": {
@@ -99,6 +100,8 @@
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.4.5",
+    "typography": "^0.16.19",
+    "typography-theme-st-annes": "^0.16.19",
     "yup": "0.21.3"
   },
   "lint-staged": {

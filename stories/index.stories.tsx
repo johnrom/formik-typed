@@ -6,6 +6,12 @@ import {
   ConnectedSignupForm,
 } from '../examples/SignupForm';
 import { TypedFormik } from '../src/TypedFormik';
+import Typography from 'typography';
+
+const TypographyTheme = require('typography-theme-st-annes');
+const typography = new Typography(TypographyTheme);
+
+typography.injectStyles();
 
 storiesOf('SignupForm', module)
   .add('TypedFormik', () => (
