@@ -61,9 +61,5 @@ export declare type BaseFieldAttributes<
  * This refines TProps outside of FieldAttributes because those Props may not be partial
  */
 export type TypedAttributes<Values, ValueType, TProps = {}> = TProps &
-  Partial<
-    Pick<
-      BaseFieldAttributes<TProps, Values, ValueType>,
-      Exclude<keyof BaseFieldAttributes<TProps, Values, ValueType>, 'name'>
-    >
-  >;
+  // `name` is no longer a required attribute
+  Partial<BaseFieldAttributes<TProps, Values, ValueType>>;

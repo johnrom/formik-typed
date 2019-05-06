@@ -19,7 +19,12 @@ export const wrapField = <FormValues, Values, Name extends keyof Values>(
   }
 
   const field = (props: TypedAttributes<FormValues, Values[Name]>) => {
-    return <Field name={`${lastKey}${suffix}`} {...props} />;
+    return (
+      <Field
+        name={props.name ? props.name : `${lastKey}${suffix}`}
+        {...props}
+      />
+    );
   };
 
   return () => field;
