@@ -14,18 +14,11 @@ export const handleEmergencyContactAddEvent = (
     EmergencyContactsFormValues,
     EmergencyContact[]
   >
-) => () => {
-  const newValue = emergencyContactField.field.value.concat(
-    getDefaultEmergencyContactValue()
-  );
-
-  console.log(emergencyContactField.field.value, newValue);
-
+) => () =>
   emergencyContactField.form.setFieldValue(
     emergencyContactField.field.name,
-    newValue
+    emergencyContactField.field.value.concat(getDefaultEmergencyContactValue())
   );
-};
 
 export const handleEmergencyContactChangeEvent = <
   TName extends keyof EmergencyContact
@@ -39,19 +32,16 @@ export const handleEmergencyContactChangeEvent = <
   // there's currently no way I know of to make this optional only for string values
   valueConverter: InputValueConverterFunction<EmergencyContact[TName]>
 ) => (event: React.ChangeEvent<HTMLInputElement>) => {
-  console.log(subField, emergencyContactField, updateIndex);
   if (
     event.target.value !==
     getIn(emergencyContactField.field.value[updateIndex], subField.field.name)
   ) {
-    console.log('iffed');
     const addresses = emergencyContactField.field.value.map(
       (addressField, fieldIndex) => {
-        console.log('mapped');
         if (fieldIndex !== updateIndex) {
           return addressField;
         }
-        console.log('not early');
+
         return {
           ...addressField,
           [subField.field.name]: valueConverter
@@ -73,17 +63,13 @@ export const handleEmergencyContactRemoveEvent = (
     EmergencyContact[]
   >,
   index: number
-) => () => {
-  const newValue =
+) => () =>
+  emergencyContactField.form.setFieldValue(
+    emergencyContactField.field.name,
     emergencyContactField.field.value.length > 1
       ? [
           ...emergencyContactField.field.value.slice(0, index),
           ...emergencyContactField.field.value.slice(index + 1),
         ]
-      : [getDefaultEmergencyContactValue()];
-
-  emergencyContactField.form.setFieldValue(
-    emergencyContactField.field.name,
-    newValue
+      : [getDefaultEmergencyContactValue()]
   );
-};

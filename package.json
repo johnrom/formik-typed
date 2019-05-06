@@ -1,7 +1,7 @@
 {
   "name": "formik-typed",
   "description": "Forms in React, without tears, but with typed fields",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "license": "MIT",
   "author": "John Rom <web@johnrom.com>",
   "repository": "johnrom/formik-typed",
