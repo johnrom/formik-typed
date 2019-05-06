@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
-  EmergencyContactsFieldWrapper,
+  EmergencyContactsField,
   EmergencyContact,
-} from './EmergencyContactsFieldWrapper';
-import { AgeCustomField } from './AgeCustomField';
+} from './EmergencyContactsField';
+import { AgeField } from './AgeField';
 import { TypedFormikProps } from '../src/types';
 import { Form } from '@johnrom/formik';
 import { withTypedFormik } from '../src/withTypedFormik';
@@ -25,13 +25,14 @@ export const SignupForm: React.FC<
     <div>
       <h1>Signup</h1>
       <Form>
-        <div>
-          {/* Writing a Field definition inline is pretty simple.  */}
+        <p>
+          {/* Writing a Field definition inline is dead simple.  */}
           <TitleField>
             {nameProps => (
               <>
                 <label htmlFor={nameProps.field.name}>Title</label>
                 <select
+                  name={nameProps.field.name}
                   value={nameProps.field.value}
                   onChange={nameProps.field.onChange}
                 >
@@ -42,8 +43,8 @@ export const SignupForm: React.FC<
               </>
             )}
           </TitleField>
-        </div>
-        <div>
+        </p>
+        <p>
           <NameField>
             {nameProps => (
               <>
@@ -57,12 +58,12 @@ export const SignupForm: React.FC<
               </>
             )}
           </NameField>
-        </div>
+        </p>
         {/* Passing your own Custom Component to a Field definition is also pretty easy.
          */}
-        <AgeCustomField field={props.fields.age._getField()} min={21} />
+        <AgeField field={props.fields.age._getField()} min={21} />
         {/* For Custom Components that need to manage multiple fields, you can pass the proxy directly */}
-        <EmergencyContactsFieldWrapper fields={props.fields} />
+        <EmergencyContactsField fields={props.fields} />
         <button type="submit">Submit</button>
       </Form>
     </div>

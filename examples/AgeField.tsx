@@ -6,7 +6,7 @@ export interface AgeCustomFieldProps {
   min: number;
 }
 
-export const AgeCustomField: React.FC<AgeCustomFieldProps> = props => (
+export const AgeField: React.FC<AgeCustomFieldProps> = props => (
   <props.field
     validate={value =>
       !value || value < props.min
@@ -15,8 +15,8 @@ export const AgeCustomField: React.FC<AgeCustomFieldProps> = props => (
     }
   >
     {fieldProps => (
-      <>
-        <label htmlFor={props.field.name}>Name</label>
+      <p>
+        <label htmlFor={props.field.name}>Age</label>
         <input
           type="number"
           min={props.min}
@@ -26,7 +26,7 @@ export const AgeCustomField: React.FC<AgeCustomFieldProps> = props => (
           onChange={fieldProps.field.onChange}
           placeholder="21"
         />
-      </>
+      </p>
     )}
   </props.field>
 );
