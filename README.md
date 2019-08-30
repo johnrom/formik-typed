@@ -6,7 +6,7 @@ Before use, check out the [Formik Docs](https://jaredpalmer.com/formik/docs/over
 
 ## In-browser Playgrounds
 
-Coming soon!
+[CodeSandbox](https://codesandbox.io/s/formik-typed-fzge9)
 
 ## Examples
 
