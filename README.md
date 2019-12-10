@@ -1,3 +1,5 @@
+> Note: Does not work in IE11 or anywhere Proxy is not supported!
+
 Making forms less verbose in [React](https://github.com/facebook/react) shouldn't cause you to lose your [TypeScript](https://typescriptlang.org) typings. This package provides a wrapper for [Formik](https://github.com/jaredpalmer/formik/) that will strongly type your field name and give you that name when you need it.
 
 Status: **Alpha**
