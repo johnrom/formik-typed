@@ -14,7 +14,9 @@ Before use, check out the [Formik Docs](https://jaredpalmer.com/formik/docs/over
 
 ## Examples
 
-See all examples here:
+See all examples here: https://github.com/johnrom/formik-typed/tree/master/examples
+
+Or check out the [CodeSandbox](https://codesandbox.io/s/formik-typed-fzge9).
 
 ### Using Fields
 
